@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Build an interactive, modern-technology Google Drive–like web app with a catchy name, featuring a file/folder UI and the ability to download a single folder containing all files, with the project structured for hosting in GitHub and publishing/deployment.",
+  "architectural_notes": [],
+  "known_issues": [
+    "Critical regression/bug: Folder creation not working in UI.",
+    "Critical regression/bug: File uploads not working.",
+    "Critical regression/bug: UI buttons not responding/working; needs verification of other core interactions.",
+    "Bug/regression: Users are not able to open files from the UI (file open/preview/download action not working).",
+    "Bug: App shows “Unable to load your drive — Connection not ready. Please wait a moment and try again.” indicating backend/agent/connection initialization not ready, blocking Drive load.",
+    "User reports the deployed app/version is still not opening (app or file-open action remains non-functional)."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-catchy-english-product-name-for-the-app-and-use-it-consistently-across-the-ui-app-title-header-browser-title-and-readme",
+      "title": "Create a catchy English product name for the app and use it consistently across the UI (app title/header), browser title, and README.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-file-operations-end-to-end-frontend-backend-upload-download-rename-delete-and-move-files-between-folders-using-an-interactive-ui-modeled-after-a-modern-cloud-drive-file-manager",
+      "title": "Implement file operations end-to-end (frontend + backend): upload, download, rename, delete, and move files between folders, using an interactive UI modeled after a modern cloud-drive file manager.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-folder-navigation-and-management-ui-create-folders-open-folders-breadcrumb-navigation-and-folder-level-rename-delete-actions",
+      "title": "Implement folder navigation and management UI: create folders, open folders, breadcrumb navigation, and folder-level rename/delete actions.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-ability-to-download-a-single-folder-that-contains-all-files-in-that-folder-hierarchy-recursive-export-as-one-downloadable-archive-produced-in-the-browser-no-server-side-zip-generation",
+      "title": "Add the ability to download a single folder that contains all files in that folder hierarchy (recursive export) as one downloadable archive produced in the browser (no server-side zip generation).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-modern-interactive-ui-behaviors-sortable-list-grid-toggle-search-within-the-current-folder-selection-single-multi-and-contextual-actions-toolbar-buttons-and-or-right-click-menu-for-selected-items",
+      "title": "Add modern, interactive UI behaviors: sortable list/grid toggle, search within the current folder, selection (single/multi), and contextual actions (toolbar buttons and/or right-click menu) for selected items.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-coherent-catchy-visual-theme-no-default-unstyled-look-and-apply-it-consistently-across-screens-choose-a-distinct-color-palette-avoid-blue-purple-typography-spacing-and-component-styling-using-tailwind-existing-ui-components-compose-do-not-edit-immutable-ui-component-sources",
+      "title": "Provide a coherent, catchy visual theme (no default/unstyled look) and apply it consistently across screens: choose a distinct color palette (avoid blue/purple), typography, spacing, and component styling using Tailwind + existing UI components (compose, do not edit immutable UI component sources).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-internet-identity-sign-in-and-associate-stored-files-folders-with-the-signed-in-principal-so-each-user-sees-only-their-own-drive-contents",
+      "title": "Add Internet Identity sign-in and associate stored files/folders with the signed-in principal so each user sees only their own drive contents.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-repo-ready-project-documentation-for-github-and-publishing-include-a-readme-with-local-development-steps-building-deploying-to-the-internet-computer-dfx-and-how-to-export-download-a-folder",
+      "title": "Create repo-ready project documentation for GitHub and publishing: include a README with local development steps, building, deploying to the Internet Computer (dfx), and how to export/download a folder.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-empty-loading-error-states-throughout-the-file-manager-experience-first-time-empty-drive-empty-folder-upload-failure-download-failure-with-clear-english-user-facing-copy",
+      "title": "Add empty/loading/error states throughout the file manager experience (first-time empty drive, empty folder, upload failure, download failure) with clear English user-facing copy.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-generated-static-images-logo-and-empty-state-illustration-from-frontend-public-assets-generated-within-the-ui-e-g-header-logo-and-empty-state-area",
+      "title": "Render the generated static images (logo and empty-state illustration) from frontend/public/assets/generated within the UI (e.g., header logo and empty-state area).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-root-level-navigation-and-id-handling-so-folder-listing-file-listing-folder-creation-and-file-upload-work-when-the-user-is-in-the-top-level-my-drive-view-i-e-when-there-is-no-selected-folder-ensure-the-frontend-never-calls-backend-folder-file-apis-with-an-invalid-placeholder-folderid-such-as-an-empty-string",
+      "title": "Fix root-level navigation and ID handling so folder listing, file listing, folder creation, and file upload work when the user is in the top-level “My Drive” view (i.e., when there is no selected folder). Ensure the frontend never calls backend folder/file APIs with an invalid placeholder folderId such as an empty string.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-upload-dialog-and-related-button-behavior-so-upload-files-reliably-opens-closes-and-upload-completion-correctly-updates-ui-state-and-success-messaging-ensure-the-dialog-s-open-close-handler-respects-the-boolean-argument-from-the-dialog-component-and-does-not-prevent-closing-unintentionally",
+      "title": "Fix the upload dialog and related button behavior so “Upload Files” reliably opens/closes and upload completion correctly updates UI state and success messaging. Ensure the dialog’s open/close handler respects the boolean argument from the Dialog component and does not prevent closing unintentionally.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-and-fix-any-authorization-initialization-issues-that-prevent-mutations-create-folder-upload-file-rename-delete-move-from-executing-after-internet-identity-login-including-cases-where-access-control-initialization-depends-on-a-missing-empty-admin-secret-ensure-user-facing-errors-are-shown-in-english-and-the-ui-does-not-appear-dead-when-a-backend-call-traps",
+      "title": "Audit and fix any authorization/initialization issues that prevent mutations (create folder, upload file, rename/delete/move) from executing after Internet Identity login, including cases where access-control initialization depends on a missing/empty admin secret. Ensure user-facing errors are shown in English and the UI does not appear “dead” when a backend call traps.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-run-a-focused-smoke-test-of-core-drive-interactions-and-fix-any-additional-regressions-discovered-that-make-the-ui-feel-non-functional-e-g-open-folder-breadcrumb-navigation-selection-toolbar-actions-without-expanding-scope-beyond-reliability-bug-fixes",
+      "title": "Run a focused smoke-test of core Drive interactions and fix any additional regressions discovered that make the UI feel non-functional (e.g., open folder, breadcrumb navigation, selection toolbar actions) without expanding scope beyond reliability/bug fixes.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-drive-browsing-experience-reliably-show-the-signed-in-user-s-folders-and-files-after-internet-identity-login-and-profile-setup-if-required-the-app-must-load-and-render-the-user-s-root-my-drive-contents-and-allow-opening-a-folder-to-view-its-files",
+      "title": "Make the Drive browsing experience reliably show the signed-in user’s folders and files: after Internet Identity login (and profile setup if required), the app must load and render the user’s root (“My Drive”) contents and allow opening a folder to view its files.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enable-opening-a-file-from-the-file-list-grid-by-clicking-the-file-row-card-or-file-name-with-a-clear-default-behavior-open-the-file-in-a-new-browser-tab-when-possible-and-otherwise-download-it-ensure-this-works-in-both-list-view-itemlist-and-grid-view-itemgrid-without-interfering-with-selection-checkboxes-or-the-action-menus",
+      "title": "Enable opening a file from the file list/grid by clicking the file row/card (or file name), with a clear default behavior: open the file in a new browser tab when possible, and otherwise download it. Ensure this works in both list view (ItemList) and grid view (ItemGrid) without interfering with selection checkboxes or the action menus.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-explicit-open-action-for-files-in-both-the-file-actions-dropdown-fileactions-and-the-right-click-context-menu-itemcontextmenu-and-keep-the-existing-download-action-open-must-reuse-the-same-underlying-open-download-logic-as-clicking-the-file-in-the-list-grid",
+      "title": "Add an explicit \"Open\" action for files in both the file actions dropdown (FileActions) and the right-click context menu (ItemContextMenu), and keep the existing \"Download\" action. \"Open\" must reuse the same underlying open/download logic as clicking the file in the list/grid.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-prevent-the-app-from-showing-the-destructive-drive-error-state-unable-to-load-your-drive-for-transient-internet-computer-connection-actor-initialization-states-instead-keep-the-user-in-a-clear-loading-connecting-state-until-the-backend-actor-is-ready-or-a-real-initialization-error-is-confirmed",
+      "title": "Prevent the app from showing the destructive Drive error state (“Unable to load your drive”) for transient Internet Computer connection/actor initialization states; instead, keep the user in a clear loading/connecting state until the backend actor is ready or a real initialization error is confirmed.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-actor-initialization-resilient-if-access-control-initialization-the-call-to-initializeaccesscontrolwithsecret-fails-due-to-a-missing-empty-secret-or-other-recoverable-conditions-do-not-leave-the-app-in-a-permanently-broken-state-surface-a-clear-english-error-with-an-actionable-retry-and-allow-the-user-to-continue-using-the-app-when-safe-to-do-so",
+      "title": "Make actor initialization resilient: if access-control initialization (the call to `_initializeAccessControlWithSecret`) fails due to a missing/empty secret or other recoverable conditions, do not leave the app in a permanently broken state; surface a clear English error with an actionable retry and allow the user to continue using the app when safe to do so.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-drive-data-query-guarding-so-that-drive-profile-queries-never-intentionally-throw-the-generic-frontend-error-actor-not-available-during-normal-startup-queries-should-be-disabled-or-deferred-until-the-actor-is-ready-avoiding-the-normalized-message-connection-not-ready-please-wait-a-moment-and-try-again-being-shown-as-a-hard-failure-during-initial-load",
+      "title": "Improve Drive data-query guarding so that drive/profile queries never intentionally throw the generic frontend error `Actor not available` during normal startup; queries should be disabled or deferred until the actor is ready, avoiding the normalized message “Connection not ready. Please wait a moment and try again” being shown as a hard failure during initial load.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-shared-file-open-download-utility-to-be-robust-across-browsers-and-ic-blob-urls-avoiding-silent-failures-and-ensuring-correct-file-types-are-used-when-creating-blob-object-urls",
+      "title": "Update the shared file open/download utility to be robust across browsers and IC blob URLs, avoiding silent failures and ensuring correct file types are used when creating Blob/Object URLs.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-focused-smoke-test-pass-for-open-behavior-to-prevent-regressions-verify-open-from-click-and-open-from-menu-works-after-internet-identity-login-including-at-least-one-viewable-type-e-g-image-pdf-text-and-one-non-viewable-type-forces-download",
+      "title": "Add a focused smoke test pass for \"Open\" behavior to prevent regressions: verify open-from-click and open-from-menu works after Internet Identity login, including at least one viewable type (e.g., image/pdf/text) and one non-viewable type (forces download).",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create an interactive Google Drive clone web app using modern technologies with a catchy, modern-looking UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement file/folder navigation structure (files organized into folders) in the UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add ability to download a single folder that contains all files (bundle/export)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Provide project structure suitable for GitHub (repo-ready) and instructions to download and publish/deploy the app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Come up with a catchy project/app name for the Google Drive clone",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Implement core file/folder data model and persistence in the Motoko single-actor backend to support a Drive-like hierarchy: folders, files, and their relationships (parent folder), including metadata (name, type, size, createdAt, updatedAt).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Allow users to open a folder and see/list the files they have (file listing/browsing in the UI)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Make opening a file from the Drive UI reliably work when clicking a file row/card/name and when choosing the explicit \"Open\" action from menus, so that users can actually open or download the file instead of nothing happening.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Build an interactive Google Drive–like file manager with folder download export and modern UI",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

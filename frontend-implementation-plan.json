@@ -1,0 +1,79 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix Drive file open action with new-tab + download fallback and robust blob handling",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "summary": "Unify and fix file open behavior across list/grid clicks and menu/context actions with new-tab open and download fallback plus toasts.",
+      "acceptanceCriteria": [
+        "In list view (frontend/src/components/drive/ItemList.tsx), clicking a file name/row opens the file in a new browser tab when possible; if a new tab cannot be opened, the file is downloaded instead.",
+        "In grid view (frontend/src/components/drive/ItemGrid.tsx), clicking a file card/name opens the file in a new browser tab when possible; if a new tab cannot be opened, the file is downloaded instead.",
+        "In the file actions dropdown (frontend/src/components/drive/FileActions.tsx), the \"Open\" action triggers the exact same underlying open/download behavior as clicking the file in the list/grid.",
+        "In the right-click context menu (frontend/src/components/drive/ItemContextMenu.tsx), the \"Open\" action triggers the exact same underlying open/download behavior as clicking the file in the list/grid.",
+        "If the browser blocks opening a new tab (popup blocked) and the app falls back to download, the user sees a clear English toast explaining what happened (e.g., that the popup was blocked and the file was downloaded instead).",
+        "If opening/downloading fails (e.g., blob fetch fails), the user sees a clear English error toast (using the existing normalizeError helper) and the UI remains responsive."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/drive/ItemList.tsx",
+          "operation": "modify",
+          "description": "Update file click handlers to use a single shared open/download utility result (from frontend/src/utils/fileOpen.ts), and show an English toast when popups are blocked and a download fallback occurs; continue to use normalizeError for failures. (Uses blob-storage ExternalBlob behavior indirectly via file.blob; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/components/drive/ItemGrid.tsx",
+          "operation": "modify",
+          "description": "Update file card/name click handlers to call the same underlying open/download behavior as list view (via frontend/src/utils/fileOpen.ts), including popup-blocked download fallback toast and normalizeError-based error toast. (Uses blob-storage ExternalBlob behavior indirectly via file.blob; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/components/drive/FileActions.tsx",
+          "operation": "modify",
+          "description": "Ensure the \"Open\" dropdown action calls the exact same open/download function used by list/grid clicks and surfaces the same popup-blocked fallback toast + normalizeError failure toast; keep \"Download\" action separate but aligned with the same download helper for consistency. (Uses blob-storage ExternalBlob behavior indirectly via file.blob; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/components/drive/ItemContextMenu.tsx",
+          "operation": "modify",
+          "description": "Ensure the context menu \"Open\" action triggers the same unified open/download logic as clicks and FileActions \"Open\", including popup-blocked fallback explanation toast and normalizeError error toast. (Uses blob-storage ExternalBlob behavior indirectly via file.blob; verify the component's usage instructions before implementing.)"
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Harden the shared open/download utility for cross-browser behavior, correct MIME inference, and safe object URL lifecycle management.",
+      "acceptanceCriteria": [
+        "The implementation in frontend/src/utils/fileOpen.ts does not silently succeed while producing a blank/invalid tab; it must detect and handle failures by falling back to download and/or showing a user-facing error.",
+        "Downloads preserve the original filename (file.metadata.name) and do not always force the MIME type to application/octet-stream when a more appropriate type can be determined from the file extension.",
+        "Any object URLs created for opening/downloading are revoked to avoid memory leaks.",
+        "All user-facing text related to open/download failures is in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/fileOpen.ts",
+          "operation": "modify",
+          "description": "Refactor open/download logic to return a structured result (e.g., opened vs downloaded with reason like popup-blocked), infer a best-effort MIME type from file extension/filename, prefer robust blob/object-URL open for browser-viewable types, reliably fall back to download when a new tab cannot be opened, and revoke any created object URLs (including delayed revoke for URLs opened in a new tab) to prevent leaks. Leverage blob-storage ExternalBlob methods (getBytes/getDirectURL) safely and consistently; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Add a focused manual smoke-test checklist for Open behavior across views and menus after Internet Identity login.",
+      "acceptanceCriteria": [
+        "A developer can manually verify, in a deployed build, that at least one browser-viewable file opens in a new tab via (1) click in list view, (2) click in grid view, (3) FileActions > Open, and (4) context menu > Open.",
+        "A developer can manually verify that a non-viewable file type triggers download via the same four interaction paths.",
+        "If popup blocking prevents opening a new tab, the behavior is still successful (download) and the user receives an English explanation toast."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/docs/smoke-test-open.md",
+          "operation": "create",
+          "description": "Create a concise manual smoke-test checklist documenting how to verify Open behavior after Internet Identity login, covering list/grid click paths, FileActions \"Open\", context menu \"Open\", one viewable type (image/pdf/text) and one non-viewable type (forces download), and expected popup-blocked fallback toast wording (English)."
+        },
+        {
+          "path": "frontend/README.md",
+          "operation": "modify",
+          "description": "Add a short \"Smoke test: Open behavior\" section linking to frontend/docs/smoke-test-open.md so developers can quickly run the regression check after deployments."
+        }
+      ]
+    }
+  ]
+}

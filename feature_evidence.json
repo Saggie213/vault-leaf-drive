@@ -1,0 +1,46 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-shared-file-open-download-utility-to-be-robust-across-browsers-and-ic-blob-urls-avoiding-silent-failures-and-ensuring-correct-file-types-are-used-when-creating-blob-object-urls",
+      "featureTitle": "Update the shared file open/download utility to be robust across browsers and IC blob URLs, avoiding silent failures and ensuring correct file types are used when creating Blob/Object URLs.",
+      "files": [
+        "frontend/src/utils/fileOpen.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-23"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-focused-smoke-test-pass-for-open-behavior-to-prevent-regressions-verify-open-from-click-and-open-from-menu-works-after-internet-identity-login-including-at-least-one-viewable-type-e-g-image-pdf-text-and-one-non-viewable-type-forces-download",
+      "featureTitle": "Add a focused smoke test pass for \"Open\" behavior to prevent regressions: verify open-from-click and open-from-menu works after Internet Identity login, including at least one viewable type (e.g., image/pdf/text) and one non-viewable type (forces download).",
+      "files": [
+        "frontend/README.md",
+        "frontend/docs/smoke-test-open.md"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

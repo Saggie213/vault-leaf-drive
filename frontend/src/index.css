@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        --background: 0.98 0.005 90;
+        --foreground: 0.25 0.015 90;
+        --card: 1 0 0;
+        --card-foreground: 0.25 0.015 90;
+        --popover: 1 0 0;
+        --popover-foreground: 0.25 0.015 90;
+        --primary: 0.55 0.18 145;
+        --primary-foreground: 0.98 0.005 90;
+        --secondary: 0.92 0.01 90;
+        --secondary-foreground: 0.25 0.015 90;
+        --muted: 0.95 0.008 90;
+        --muted-foreground: 0.50 0.01 90;
+        --accent: 0.70 0.20 145;
+        --accent-foreground: 0.98 0.005 90;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0.005 90;
+        --border: 0.88 0.008 90;
+        --input: 0.88 0.008 90;
+        --ring: 0.55 0.18 145;
+        --chart-1: 0.60 0.18 145;
+        --chart-2: 0.65 0.15 200;
+        --chart-3: 0.55 0.20 280;
+        --chart-4: 0.70 0.18 100;
+        --chart-5: 0.60 0.22 50;
+    }
+
+    .dark {
+        --background: 0.18 0.015 90;
+        --foreground: 0.95 0.008 90;
+        --card: 0.22 0.015 90;
+        --card-foreground: 0.95 0.008 90;
+        --popover: 0.20 0.015 90;
+        --popover-foreground: 0.95 0.008 90;
+        --primary: 0.65 0.20 145;
+        --primary-foreground: 0.18 0.015 90;
+        --secondary: 0.28 0.015 90;
+        --secondary-foreground: 0.95 0.008 90;
+        --muted: 0.28 0.015 90;
+        --muted-foreground: 0.65 0.01 90;
+        --accent: 0.45 0.18 145;
+        --accent-foreground: 0.95 0.008 90;
+        --destructive: 0.60 0.22 25;
+        --destructive-foreground: 0.95 0.008 90;
+        --border: 0.30 0.015 90;
+        --input: 0.30 0.015 90;
+        --ring: 0.65 0.20 145;
+        --chart-1: 0.60 0.18 145;
+        --chart-2: 0.65 0.15 200;
+        --chart-3: 0.55 0.20 280;
+        --chart-4: 0.70 0.18 100;
+        --chart-5: 0.60 0.22 50;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

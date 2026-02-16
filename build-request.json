@@ -1,0 +1,79 @@
+{
+  "kind": "build_request",
+  "title": "Fix file open action not working (open in new tab / download fallback)",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "text": "Make opening a file from the Drive UI reliably work when clicking a file row/card/name and when choosing the explicit \"Open\" action from menus, so that users can actually open or download the file instead of nothing happening.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "it is not opening"
+        ]
+      },
+      "acceptanceCriteria": [
+        "In list view (frontend/src/components/drive/ItemList.tsx), clicking a file name/row opens the file in a new browser tab when possible; if a new tab cannot be opened, the file is downloaded instead.",
+        "In grid view (frontend/src/components/drive/ItemGrid.tsx), clicking a file card/name opens the file in a new browser tab when possible; if a new tab cannot be opened, the file is downloaded instead.",
+        "In the file actions dropdown (frontend/src/components/drive/FileActions.tsx), the \"Open\" action triggers the exact same underlying open/download behavior as clicking the file in the list/grid.",
+        "In the right-click context menu (frontend/src/components/drive/ItemContextMenu.tsx), the \"Open\" action triggers the exact same underlying open/download behavior as clicking the file in the list/grid.",
+        "If the browser blocks opening a new tab (popup blocked) and the app falls back to download, the user sees a clear English toast explaining what happened (e.g., that the popup was blocked and the file was downloaded instead).",
+        "If opening/downloading fails (e.g., blob fetch fails), the user sees a clear English error toast (using the existing normalizeError helper) and the UI remains responsive."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Update the shared file open/download utility to be robust across browsers and IC blob URLs, avoiding silent failures and ensuring correct file types are used when creating Blob/Object URLs.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "it is not opening"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The implementation in frontend/src/utils/fileOpen.ts does not silently succeed while producing a blank/invalid tab; it must detect and handle failures by falling back to download and/or showing a user-facing error.",
+        "Downloads preserve the original filename (file.metadata.name) and do not always force the MIME type to application/octet-stream when a more appropriate type can be determined from the file extension.",
+        "Any object URLs created for opening/downloading are revoked to avoid memory leaks.",
+        "All user-facing text related to open/download failures is in English."
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Add a focused smoke test pass for \"Open\" behavior to prevent regressions: verify open-from-click and open-from-menu works after Internet Identity login, including at least one viewable type (e.g., image/pdf/text) and one non-viewable type (forces download).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "it is not opening"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A developer can manually verify, in a deployed build, that at least one browser-viewable file opens in a new tab via (1) click in list view, (2) click in grid view, (3) FileActions > Open, and (4) context menu > Open.",
+        "A developer can manually verify that a non-viewable file type triggers download via the same four interaction paths.",
+        "If popup blocking prevents opening a new tab, the behavior is still successful (download) and the user receives an English explanation toast."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, and frontend/src/components/ui must not be edited (compose instead).",
+    "Backend must remain a single Motoko actor in backend/main.mo; only add backend/migration.mo if an upgrade/state migration is actually required.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Adding a new file preview UI (inline viewer) beyond fixing the existing open-in-new-tab/download behavior.",
+    "Introducing third-party preview services or external storage/CDN integration.",
+    "Changing authentication providers (must remain Internet Identity)."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-16T13:40:13.280Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-22",
+        "summary": "Make opening a file from the Drive UI reliably work when clicking a file row/card/name and when choosing the explicit \"Open\" action from menus, so that users can actually open or download the file instead of nothing happening.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/drive/ItemList.tsx",
+          "frontend/src/components/drive/ItemGrid.tsx",
+          "frontend/src/components/drive/FileActions.tsx",
+          "frontend/src/components/drive/ItemContextMenu.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Update the shared file open/download utility to be robust across browsers and IC blob URLs, avoiding silent failures and ensuring correct file types are used when creating Blob/Object URLs.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/fileOpen.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/fileOpen.ts"
+        ]
+      },
+      {
+        "id": "REQ-24",
+        "summary": "Add a focused smoke test pass for \"Open\" behavior to prevent regressions: verify open-from-click and open-from-menu works after Internet Identity login, including at least one viewable type (e.g., image/pdf/text) and one non-viewable type (forces download).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/docs/smoke-test-open.md",
+          "frontend/README.md"
+        ],
+        "matchedFiles": [
+          "frontend/docs/smoke-test-open.md",
+          "frontend/README.md"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/README.md",
+    "frontend/docs/smoke-test-open.md",
+    "frontend/src/utils/fileOpen.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
